@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from app.core.config import settings
 
 from app.features.extraction.router import router as extraction_router
+from app.features.jobs.router import router as jobs_router
 
 def get_application() -> FastAPI:
     # Initialize the app with our configurations
@@ -21,6 +22,7 @@ def get_application() -> FastAPI:
         }
         
     app.include_router(extraction_router, prefix=settings.API_V1_STR, tags=["Extraction"])
+    app.include_router(jobs_router, prefix=settings.API_V1_STR, tags=["Jobs"])
 
     return app
 
