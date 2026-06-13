@@ -1,0 +1,43 @@
+# OSINT_Graph_System .gitignore
+
+# Environment Variables / Secrets
+.env
+.env.*
+!.env.example
+
+# Python & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+.env_venv/
+
+# Celery & Redis
+celerybeat-schedule
+celerybeat.pid
+*.pid
+dump.rdb
+
+# Database / Graph Data exports
+*.sqlite3
+*.db
+/data/
+/neo4j_data/
+*.csv
+*.json
+*.graphml
+
+# IDEs & OS Files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs & Testing
+logs/
+*.log
+.pytest_cache/
+htmlcov/
+.coverage

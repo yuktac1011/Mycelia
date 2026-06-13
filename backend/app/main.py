@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from app.core.config import settings
 
+from app.features.extraction.router import router as extraction_router
+
 def get_application() -> FastAPI:
     # Initialize the app with our configurations
     app = FastAPI(
@@ -17,7 +19,10 @@ def get_application() -> FastAPI:
             "environment": settings.ENVIRONMENT,
             "project": settings.PROJECT_NAME
         }
+        
+    app.include_router(extraction_router, prefix=settings.API_V1_STR, tags=["Extraction"])
 
     return app
+
 
 app = get_application()
