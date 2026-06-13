@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mycelia OSINT</title>
+    <!-- Vis.js Library for Graphing -->
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1e1e2e;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input,
+        select,
+        button {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #e05263;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #ff5e71;
+        }
+
+        #mynetwork {
+            width: 100%;
+            height: 700px;
+            background-color: #282a36;
+            border-radius: 10px;
+            border: 1px solid #444;
+        }
+
+        #status {
+            text-align: center;
+            color: #8be9fd;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>🍄 Mycelia</h1>
+        <p>Ethical OSINT Network Graphing</p>
+    </div>
+
+    <div class="search-box">
+        <select id="platform">
+            <option value="github">GitHub</option>
+        </select>
+        <input type="text" id="username" placeholder="Target Username (e.g., torvalds)" />
+        <button onclick="startExtraction()">Map Network</button>
+        <button onclick="loadGraph()" style="background-color: #69b3a2;">View Graph</button>
+    </div>
+
+    <div id="status">Ready</div>
+    <div id="mynetwork"></div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+
+</html>
