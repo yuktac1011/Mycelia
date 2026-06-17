@@ -26,7 +26,7 @@ def get_application() -> FastAPI:
         }
         
     app.include_router(extraction_router, prefix=settings.API_V1_STR, tags=["Extraction"])
-    app.include_router(jobs_router, prefix=settings.API_V1_STR, tags=["Jobs"])
+    app.include_router(jobs_router, prefix=f"{settings.API_V1_STR}/jobs", tags=["Jobs"])
     app.include_router(graphing_router, prefix=f"{settings.API_V1_STR}/graph", tags=["Graphing"])
 
     # Mount static files
