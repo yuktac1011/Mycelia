@@ -62,5 +62,5 @@ Mycelia is designed to comply with modern privacy laws (GDPR, CCPA) through tech
 git clone https://github.com/yourusername/Mycelia.git
 cd Mycelia
 python -m venv venv
-./venv/Scripts/Activate.ps1   # Windows PowerShell
+./venv/Scripts/Activate.ps1   # Windows
 pip install -r requirements.txt
