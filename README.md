@@ -53,14 +53,61 @@ Mycelia is designed to comply with modern privacy laws (GDPR, CCPA) through tech
 ## 🛠️ Local Installation & Setup
 
 ### Prerequisites
-* Docker & Docker Desktop
-* Python 3.10+
-* Virtual Environment manager
+* **Docker & Docker Desktop** (for Neo4j and Redis)
+* **Python 3.10+**
+* Virtual environment manager (`venv`)
 
-### 1. Clone & Set up Environment
+### 1. Set Up Environment & Dependencies
+Navigate to the `backend` directory, create a virtual environment, and install the required dependencies:
 ```bash
+# Clone the repository and navigate to backend
 git clone https://github.com/yourusername/Mycelia.git
-cd Mycelia
+cd Mycelia/backend
+
+# Create virtual environment
 python -m venv venv
-./venv/Scripts/Activate.ps1   # Windows
+
+# Activate virtual environment
+# Windows:
+.\venv\Scripts\Activate.ps1
+# macOS/Linux:
+# source venv/bin/activate
+
+# Install dependencies
 pip install -r requirements.txt
+```
+
+### 2. Start Infrastructure Services
+From the project root directory (where `docker-compose.yml` is located), spin up the Redis and Neo4j containers:
+```bash
+docker compose up -d
+```
+This starts:
+* **Redis**: Used as the Celery task broker (`localhost:6379`)
+* **Neo4j**: Graph Database (`localhost:7687` for Bolt, `localhost:7474` for the browser UI)
+
+### 3. Run the Celery Worker
+From the `backend` directory (with your virtual environment activated), start the background worker:
+```bash
+celery -A app.core.celery_app worker --loglevel=info -P solo
+```
+> **Note:** The `-P solo` flag is required/recommended when running Celery on Windows to prevent concurrency issues.
+
+### 4. Run the FastAPI Web Server
+From the `backend` directory, launch the API server:
+```bash
+uvicorn app.main:app --reload
+```
+
+---
+
+## 🖥️ Usage & UI Features
+Once the services are running, open your browser and navigate to:
+* **Web UI**: `http://localhost:8000`
+* **API Documentation**: `http://localhost:8000/docs`
+* **Neo4j Browser UI**: `http://localhost:7474` (Credentials: `neo4j` / `mycelia_secret_123`)
+
+### Interactive Actions
+1. **Map Network**: Submit a background scraping job to extract follower/following relationships from GitHub for a target user.
+2. **View Graph**: Fetch the ego-network from Neo4j and display interactive network nodes via `Vis.js`.
+3. **Detect Sybil Rings**: Run Louvain Modularity algorithms to highlight potential coordinated sockpuppet rings in red.
